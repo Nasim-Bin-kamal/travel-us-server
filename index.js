@@ -38,11 +38,22 @@ async function run() {
             res.send(foundPackage);
         });
 
-        //GET API for booking packages
+        //GET API for booking packages for all and single user
         app.get('/bookings', async (req, res) => {
-            const cursor = bookingCollection.find({});
-            const bookings = await cursor.toArray();
-            res.send(bookings);
+
+            const email = req.query.email;
+            let orders;
+            if (email) {
+                const query = { email: email };
+                const cursor = bookingCollection.find(query);
+                bookings = await cursor.toArray();
+
+            }
+            else {
+                const cursor = bookingCollection.find({});
+                bookings = await cursor.toArray();
+            }
+            res.json(bookings);
         });
 
         //GET API for a single travel package
