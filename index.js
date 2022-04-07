@@ -87,7 +87,6 @@ async function run() {
             res.json(result);
 
         });
-
         //DELETE API for delete booked package
         app.delete('/bookings/:id', async (req, res) => {
             const id = req.params.id;
@@ -95,6 +94,7 @@ async function run() {
             const result = await bookingCollection.deleteOne(query);
             res.json(result);
         });
+
     }
     finally {
         // await client.close();
